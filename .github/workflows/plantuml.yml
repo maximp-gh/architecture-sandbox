@@ -5,9 +5,7 @@ on:
     branches:
       - main
       - warmhouse
-  pull_request:
-    branches:
-      - main
+
 
 jobs:
   generate-diagrams:
