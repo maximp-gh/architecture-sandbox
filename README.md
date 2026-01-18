@@ -115,8 +115,12 @@
 Здесь приложите ссылки на документацию API для микросервисов, которые вы спроектировали в первой части проектной работы. Для документирования используйте Swagger/OpenAPI или AsyncAPI.
 
 Первый раз пользуюсь OpenAPI.
-smart_home/monolith.yml - задокументирован API монолита по коду.
-smart_home/API_v2.yml - задокументированы некоторые entry points ToBe решения.
+
+
+[Задокументированный API монолита](smart_home/monolith.yml)
+
+[Задокументированые (не все) entry points ToBe решения](smart_home/API_v2.yml)
+
 
 # Задание 5. Работа с docker и docker-compose
 
