@@ -118,9 +118,9 @@
 Первый раз пользуюсь OpenAPI.
 
 
-[Задокументированный API монолита - smart_home/monolith.yml](smart_home/monolith.yml)
+[Задокументированный API монолита - smart_home/monolith.yml](apps/smart_home/monolith.yml)
 
-[Задокументированые (не все) entry points ToBe решения - smart_home/API_v2.yml](smart_home/API_v2.yml)
+[Задокументированые (не все) entry points ToBe решения - smart_home/API_v2.yml](apps/smart_home/API_v2.yml)
 
 
 # Задание 5. Работа с docker и docker-compose
