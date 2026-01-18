@@ -1,0 +1,55 @@
+openapi: '3.1.1'
+info:
+  title: Smart Hone - To Be
+  version: '2.0'
+servers:
+  - url: http://localhost:8090/api/v2/ 
+paths:
+  /user:
+    post:
+      summary: Add user
+      responses:
+        '200':
+          description: Successfuly added  
+    delete:
+      summary: Delete user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User identifier
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Successful deletion
+    patch:
+      summary: Partially update user information
+      responses:
+        '200':
+          description: Successful partial update
+
+  /light:
+    get:
+      description: 'Enumerating light sensors'
+      parameters: []
+      responses:
+        '200':
+          description: OK
+    put:
+      description: 'Add new light sensor'
+      parameters: []
+      responses:
+        '200':
+          description: OK
+  
+  /light/{sensorid}:
+    get:
+      description: 'Состояние света по sensor ID'
+      parameters: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: "Wrong sensor id or type"
+  

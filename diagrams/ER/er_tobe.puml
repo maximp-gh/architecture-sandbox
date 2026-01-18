@@ -1,0 +1,35 @@
+@startuml
+entity Sensor {
+  +id: INT <>
+  +house_id <>
+  +type: VARCHAR <>
+  +location: VARCHAR
+  +value: FLOAT
+  +unit: VARCHAR
+  +status: VARCHAR
+  last_updated: TIMESTAMP
+  created_at: TIMESTAMP
+}
+
+entity User {
+    +user_id: INT <>
+    +name: VARCHAR
+    +address: VARCHAR
+}
+
+entity House {
+    +house_id: INT <>
+    +address: VARCHAR
+    +user_id: INT <>
+}
+
+entity DeviceType {
+    +device_id: INT
+    +device_type: VARCHAR
+}
+
+User   ||--o{ House  : "owns"
+House  ||--o{ Sensor : "has"
+Sensor ||--|| DeviceType: "type of"
+
+@enduml

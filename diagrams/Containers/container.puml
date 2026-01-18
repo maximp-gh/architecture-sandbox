@@ -1,0 +1,30 @@
+@startuml
+title Smart Home Container Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(user, "User", "A user of the Smart Home system")
+Person(staff, "Staff", "Connecting new devices")
+
+System(SmartHome, "Smart Home", "Система для управления умным домом")
+
+System_Boundary(SmartHome, "Warm House") {
+  Container(WebApp, "Web Application", "Go", "Взаимодействие с пользователями")
+  Container(AdminApp, "Register supported device types", "Go", "Регистрация новых типов устройств")
+  Container(Database, "Database", "PostgreSQL", "Stores user/device data and telemetry")
+}
+
+System_Ext(device, "User's devices", "Devices supporting predefined APIs")
+System_Ext(payment,"Payment System", "Payment processing")
+
+Rel(user, WebApp, "Add/Control devices. Watch telemetry.")
+
+Rel(staff, AdminApp, "Manage available device types and models")
+
+Rel(WebApp, device, "Controls Devices")
+Rel(WebApp, Database, "Stores users and data")
+Rel(AdminApp, Database, "Stores new types of devices")
+Rel(WebApp, payment, "Sends payment data")
+@enduml
