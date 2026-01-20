@@ -13,7 +13,14 @@ System(SmartHome, "Smart Home", "Система для управления ум
 System_Boundary(SmartHome, "Warm House") {
   Container(WebApp, "Web Application", "Go", "Взаимодействие с пользователями")
   Container(AdminApp, "Register supported device types", "Go", "Регистрация новых типов устройств")
-  Container(Database, "Database", "PostgreSQL", "Stores user/device data and telemetry")
+  Container(Database, "Database", "PostgreSQL", "Stores user/device data")
+
+  Container(APIApp, "APIApp", "Go", "API Application")
+  Container(AuthControl, "AuthControl", "Go", "Авторизация")
+  Container(Telemetry, "Telemetry", "Go", "Сбор данных с устройств")
+  Container(UserScripts, "UserScripts", "Go", "Сценарии управления устройствами и сбора данных")
+  Container(TelemetryDB, "TimeSeries", "TimeSeries", "Stores Telemetry")
+  Container(DeviceControl, "DeviceControl", "C++", "Управление устройствами")
 }
 
 System_Ext(device, "User's devices", "Devices supporting predefined APIs")
@@ -23,8 +30,16 @@ Rel(user, WebApp, "Add/Control devices. Watch telemetry.")
 
 Rel(staff, AdminApp, "Manage available device types and models")
 
-Rel(WebApp, device, "Controls Devices")
-Rel(WebApp, Database, "Stores users and data")
+Rel(UserScripts, Telemetry, "Receives telemetry")
+Rel(APIApp, DeviceControl, "Запросы состояния")
+Rel(APIApp, AuthControl, "Проверка авторизации пользователя")
+Rel(Telemetry, DeviceControl, "Controls Devices")
+Rel(DeviceControl, device, "Receives telemetry")
+Rel(Telemetry, TelemetryDB, "Stores and requests telemetry")
+Rel(WebApp, APIApp, "API calls")
+Rel(WebApp, AuthControl, "Authorisation")
+Rel(WebApp, UserScripts, "Setup user scenario")
+Rel(APIApp, Database, "Stores users and data")
 Rel(AdminApp, Database, "Stores new types of devices")
 Rel(WebApp, payment, "Sends payment data")
 @enduml

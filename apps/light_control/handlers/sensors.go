@@ -73,6 +73,9 @@ func (h *SensorHandler) GetSensorByID(c *gin.Context) {
 		return
 	}
 
+	// TODO: Here we need to validate if requested id belongs to the authorised used
+	// like SendRequestTo UserProfile API.
+
 	resp, err := h.LightService.CrudOps(id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -16,14 +16,20 @@ Container(WebApp, "The Application") {
     Component(ControlDevices, "ControlDevices", "Управление устройствами и телеметрия")
     Component(PaymentController, "PaymentController", "Платежи")
     Component(ServiceLayer,   "ServiceLayer",   "Бизнес логика")
+    Component(API,   "API",   "API вызовы")
+    Component(RepositoryLayer,   "RepositoryLayer",   "Store/Load data")
     
 }
 
-Rel(PaymentController, ServiceLayer, "Calls Business logic")
-Rel(ServiceLayer, Database, "Stores users and devices")
+Rel(UserProfile, PaymentController, "Payments")
+Rel(ServiceLayer, RepositoryLayer, "Stores users and devices")
+Rel(RepositoryLayer, Database, "Stores users and devices")
 Rel(UserProfile, ServiceLayer, "Calls business logic")
 Rel(ControlDevices, ServiceLayer, "Calls business logic")
-Rel(DevList, Database, "Gets the list of available device models")
+Rel(DevList, RepositoryLayer, "Gets the list of available device models")
+Rel(API, DevList, "Get devices")
+Rel(API, ControlDevices, "API to control devices")
+Rel(API, UserProfile, "User API")
 
 
 @enduml
