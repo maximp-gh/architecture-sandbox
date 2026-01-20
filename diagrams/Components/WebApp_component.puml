@@ -1,0 +1,35 @@
+@startuml
+title Smart Home WebApp Component Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+System_Boundary(SmartHome, "Smart Home") {
+  Container(WebApp, "Web Application", "Go", "Взаимодействие с пользователями")
+  Container(Database, "Database", "PostgreSQL", "Stores user/device data and telemetry")
+}
+
+Container(WebApp, "The Application") {
+    Component(UserProfile, "UserProfile", "Профиль пользователя")
+    Component(DevList, "DevList", "Список доступных устройств")
+    Component(ControlDevices, "ControlDevices", "Управление устройствами и телеметрия")
+    Component(PaymentController, "PaymentController", "Платежи")
+    Component(ServiceLayer,   "ServiceLayer",   "Бизнес логика")
+    Component(API,   "API",   "API вызовы")
+    Component(RepositoryLayer,   "RepositoryLayer",   "Store/Load data")
+    
+}
+
+Rel(UserProfile, PaymentController, "Payments")
+Rel(ServiceLayer, RepositoryLayer, "Stores users and devices")
+Rel(RepositoryLayer, Database, "Stores users and devices")
+Rel(UserProfile, ServiceLayer, "Calls business logic")
+Rel(ControlDevices, ServiceLayer, "Calls business logic")
+Rel(DevList, RepositoryLayer, "Gets the list of available device models")
+Rel(API, DevList, "Get devices")
+Rel(API, ControlDevices, "API to control devices")
+Rel(API, UserProfile, "User API")
+
+
+@enduml

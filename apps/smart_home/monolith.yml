@@ -1,0 +1,102 @@
+openapi: '3.1.1'
+info:
+  title: smart home
+  version: '1.0'
+servers:
+  - url: http://localhost:8080/api/v1/
+paths:
+  /sensors: 
+    get:
+      description: 'Get data from all temperature sensors'
+      parameters: []
+      responses:
+        '200':
+          description: OK
+    post:
+      description: 'Create default sensor'
+      parameters: []
+      requestBody:
+        description: New sensor details
+        required: true
+        content:
+          application/json:
+            example:
+              name: sensorId
+              type: temperature
+              location: Kitchen
+              unit: C
+      responses:
+        '200':
+          description: OK
+  /sensors/{id}:
+    get:
+      description: 'Get sensor data by id'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      description: 'Overwrite some parameters for sensor by sensor ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: New sensor details
+        required: true
+        content:
+          application/json:
+            example:
+              name: sensorId
+              type: temperature
+              location: Kitchen
+              unit: C
+              value: 20
+              status: "on"
+      responses:
+        '200':
+          description: OK
+    delete:
+      description: 'Delete sensor by ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /sensors/{id}/{value}:
+    patch:
+      description: 'Update value for sensor by sensor ID'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "sensor id"
+          schema:
+            type: integer
+        - name: value
+          in: path
+          required: true
+          description: "new sensor value"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /sensors/temperature/{location}:
+    get:
+      description: 'Температура по локации'
+      parameters: []
+      responses:
+        '200':
+          description: OK

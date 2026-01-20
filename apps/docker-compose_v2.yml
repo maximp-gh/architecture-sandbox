@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+ 
+  light:
+    build:
+      context: ./light_control
+      dockerfile: Dockerfile
+    container_name: lightcontrol
+    #depends_on:
+    #  app:
+    #   condition: service_started
+    environment:
+      - V1_API=http://localhost:8080/api/v1/
+    ports:
+      - "8090:8090"
+    networks:
+      - smarthome-network
+  userprofile:
+    build:
+      context: ./userprofile
+      dockerfile: Dockerfile
+    container_name: user_profile
+    environment:
+      - name=value
+    ports:
+      - "8100:8100"
+    networks:
+      - smarthome-network
+
+volumes:
+  postgres_data:
+
+networks:
+  smarthome-network:
+    driver: bridge

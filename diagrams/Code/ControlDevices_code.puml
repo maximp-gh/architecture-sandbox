@@ -1,0 +1,43 @@
+@startuml
+title Smarthome Control Devices Code Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+class User {
+  +String name
+  +String email
+  +List<House> houses
+  +void register()
+  +void login()
+  +void addHouse()
+  +void removeHouse()
+}
+
+class Sensor {
+    +Int    ID
+    +String Name
+    +Type   SensorType
+    +String Location
+    +float  Value
+    +String Unit
+    +String Status
+    +Time   LastUpdated
+    +Time   CreatedAt
+    +void   View()
+    +void   TurnOnOff(command)
+}
+
+class House {  
+  +String address
+  +List<Sensor> sensors
+  +void addSensor()
+  +void removeSensor()
+}
+
+
+User  "1" -- "0..*" House  : has
+House "1" -- "0..*" Sensor : has
+
+@enduml

@@ -1,0 +1,87 @@
+openapi: '3.1.1'
+info:
+  title: Smart Home - To Be
+  version: '2.0'
+servers:
+  - url: http://localhost:8090/api/v2/ 
+paths:
+  /user:
+    post:
+      summary: Add user
+      requestBody:
+        description: Data for the new user
+        required: true
+        content:
+          application/json:
+            example:
+              name: new_user
+              phone: new_user_phone_number
+      responses:
+        '201':
+          description: Successfuly added
+          content:
+            application/json:
+              example:
+                id: 123
+                name: new_user
+                phone: new_user_phone_number
+                address: DefAddress
+                last_updated: time
+                createdat: time
+    delete:
+      summary: Delete user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User identifier
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Successful deletion
+    patch:
+      summary: Partially update user information
+      responses:
+        '200':
+          description: Successful partial update
+
+  /light:
+    get:
+      description: 'Enumerating light sensors'
+      parameters: []
+      responses:
+        '200':
+          description: OK
+    post:
+      description: 'Add new light sensor'
+      parameters: []
+      requestBody:
+        description: New light sensor details
+        required: true
+        content:
+          application/json:
+            example:
+              name: sensorId
+              type: light
+              location: Kitchen
+              unit: n/a
+      responses:
+        '200':
+          description: OK
+  
+  /light/{sensorid}:
+    get:
+      description: 'Состояние света по sensor ID'
+      parameters:
+        - name: sensorId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: "Wrong sensor id or type"
+  
